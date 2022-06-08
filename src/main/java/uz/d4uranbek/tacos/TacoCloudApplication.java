@@ -1,4 +1,4 @@
-package uz.d4uranbek.tacocloud;
+package uz.d4uranbek.tacos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

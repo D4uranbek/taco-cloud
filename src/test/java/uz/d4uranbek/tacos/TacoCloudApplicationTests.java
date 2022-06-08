@@ -1,4 +1,4 @@
-package uz.d4uranbek.tacocloud;
+package uz.d4uranbek.tacos;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

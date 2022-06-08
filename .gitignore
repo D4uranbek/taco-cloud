@@ -122,3 +122,5 @@ fabric.properties
 /mvnw
 /mvnw.cmd
 /.mvn/wrapper/maven-wrapper.properties
+/.idea/git_toolbox_prj.xml
+/.idea/codeStyles/codeStyleConfig.xml
