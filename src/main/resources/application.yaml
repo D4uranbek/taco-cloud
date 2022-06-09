@@ -1,6 +1,14 @@
 server:
   port: 8088
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 671291019398-ahb2l91t1999d6e3cbee4k0q3of64g5j.apps.googleusercontent.com
+            clientSecret: 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
+            scope: email, public_profile
   thymeleaf:
     cache: false
   data:
@@ -13,6 +21,6 @@ spring:
       password: cassandra
   banner:
     image:
-      location: src/main/resources/static/banner.txt
+      location: src/main/resources/banner.txt
 # todo: set thymeleaf cache true before deployment
 # CREATE USER tacocloud WITH PASSWORD 's3cr3tP455w0rd' SUPERUSER;
