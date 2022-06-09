@@ -2,6 +2,7 @@ package uz.d4uranbek.tacos.domains;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class TacoOrder {
 
     private String ccCVV;
 
-    private List<Taco> tacos;
+    private List<Taco> tacos = new ArrayList<>();
 
     public void addTaco(Taco taco) {
         this.tacos.add( taco );
