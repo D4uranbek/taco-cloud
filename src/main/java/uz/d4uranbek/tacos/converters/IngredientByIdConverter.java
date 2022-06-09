@@ -1,36 +1,30 @@
 package uz.d4uranbek.tacos.converters;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+import uz.d4uranbek.tacos.UDTs.IngredientUDT;
 import uz.d4uranbek.tacos.domains.Ingredient;
-
-import java.util.HashMap;
-import java.util.Map;
+import uz.d4uranbek.tacos.repositories.IngredientRepository;
+import uz.d4uranbek.tacos.utils.TacoUDRUtils;
 
 /**
  * @author D4uranbek
  * @since 09.06.2022
  */
+@RequiredArgsConstructor
 @Component
-public class IngredientByIdConverter implements Converter<String, Ingredient> {
+public class IngredientByIdConverter implements Converter<String, IngredientUDT> {
 
-    private Map<String, Ingredient> ingredientMap = new HashMap<>();
-
-    public IngredientByIdConverter() {
-        ingredientMap.put( "FLTO", new Ingredient( "FLTO", "Flour Tortilla", Ingredient.Type.WRAP ) );
-        ingredientMap.put( "COTO", new Ingredient( "COTO", "Corn Tortilla", Ingredient.Type.WRAP ) );
-        ingredientMap.put( "GRBF", new Ingredient( "GRBF", "Ground Beef", Ingredient.Type.PROTEIN ) );
-        ingredientMap.put( "CARN", new Ingredient( "CARN", "Carnitas", Ingredient.Type.PROTEIN ) );
-        ingredientMap.put( "TMTO", new Ingredient( "TMTO", "Diced Tomatoes", Ingredient.Type.VEGGIES ) );
-        ingredientMap.put( "LETC", new Ingredient( "LETC", "Lettuce", Ingredient.Type.VEGGIES ) );
-        ingredientMap.put( "CHED", new Ingredient( "CHED", "Cheddar", Ingredient.Type.CHEESE ) );
-        ingredientMap.put( "JACK", new Ingredient( "JACK", "Monterrey Kack", Ingredient.Type.CHEESE ) );
-        ingredientMap.put( "SLSA", new Ingredient( "SLSA", "Salsa", Ingredient.Type.SAUCE ) );
-        ingredientMap.put( "SRCR", new Ingredient( "SRCR", "Sour Cream", Ingredient.Type.SAUCE ) );
-    }
+    private final IngredientRepository ingredientRepository;
 
     @Override
-    public Ingredient convert(String id) {
-        return ingredientMap.get( id );
+    public IngredientUDT convert(String id) {
+        Ingredient ingredient = ingredientRepository.findById( id )
+                .orElseThrow( () -> new RuntimeException( "Ingredient with this ID not found" ) );
+
+        return TacoUDRUtils.toIngredientUDT( ingredient );
     }
+
 }
+

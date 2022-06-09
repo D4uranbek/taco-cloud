@@ -1,13 +1,25 @@
 package uz.d4uranbek.tacos.domains;
 
-import lombok.*;
+import com.datastax.oss.driver.api.core.uuid.Uuids;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
+import uz.d4uranbek.tacos.UDTs.TacoUDT;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author D4uranbek
@@ -17,8 +29,16 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-@RequiredArgsConstructor
-public class TacoOrder {
+@Table( "orders" )
+public class TacoOrder implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @PrimaryKey
+    private UUID id = Uuids.timeBased();
+
+    private LocalDateTime placedAt = LocalDateTime.now();
 
     @NotBlank( message = "This field is required" )
     private String deliveryName;
@@ -44,9 +64,10 @@ public class TacoOrder {
     @Digits( integer = 3, fraction = 0, message = "Invalid CCV" )
     private String ccCVV;
 
-    private List<Taco> tacos = new ArrayList<>();
+    @Column( "tacos" )
+    private List<TacoUDT> tacos = new ArrayList<>();
 
-    public void addTaco(Taco taco) {
+    public void addTaco(TacoUDT taco) {
         this.tacos.add( taco );
     }
 }

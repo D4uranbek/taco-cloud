@@ -1,0 +1,18 @@
+server:
+  port: 8088
+spring:
+  thymeleaf:
+    cache: false
+  data:
+    cassandra:
+      keyspace-name: tacocloud
+      schema-action: recreate
+      local-datacenter: datacenter1
+      port: 9042
+      username: cassandra
+      password: cassandra
+  banner:
+    image:
+      location: src/main/resources/static/banner.txt
+# todo: set thymeleaf cache true before deployment
+# CREATE USER tacocloud WITH PASSWORD 's3cr3tP455w0rd' SUPERUSER;
