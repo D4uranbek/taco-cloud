@@ -1,6 +1,6 @@
 package uz.d4uranbek.tacos.domains;
 
-import lombok.*;
+import lombok.Getter;
 
 /**
  * @author D4uranbek
