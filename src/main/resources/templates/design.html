@@ -59,9 +59,16 @@
                 <span th:text="${ingredient.name}">INGREDIENT</span><br/>
             </div>
         </div>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('ingredients')}"
+              th:errors="*{ingredients}">Ingredients Error</span>
 
         <h3>Name your taco creation:</h3>
-        <input type="text" th:field="*{name}"/><br/>
+        <input type="text" th:field="*{name}"/>
+        <span class="validationError"
+              th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}">Name Error</span>
+        <br/>
 
         <button>Submit Your Taco</button>
     </div>
