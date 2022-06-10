@@ -1,10 +1,7 @@
 package uz.d4uranbek.tacos.domains;
 
 import com.datastax.oss.driver.api.core.uuid.Uuids;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,6 +39,7 @@ public class User implements UserDetails {
     private String zip;
     private String phoneNumber;
 
+    @Builder
     public User(String username, String password, String fullName, String street, String city, String state, String zip, String phoneNumber) {
         this.username = username;
         this.password = password;

@@ -1,6 +1,24 @@
+greeting:
+  welcome: Hello Taco World!
 server:
   port: 8088
+#  ssl:
+#    key-store: src/main/resources/mykeys.jks
+#    key-store-password: D4uranbek
+#    key-password: D4uranbek
+logging:
+  level:
+  tacos: WARN
+---
 spring:
+  profiles:
+    active:
+      - dev
+      - qa
+      - prod
+  application:
+    name: Taco Cloud
+    version: 2.0.0
   security:
     oauth2:
       client:
@@ -22,5 +40,17 @@ spring:
   banner:
     image:
       location: src/main/resources/banner.txt
+logging:
+  file:
+    path: /var/logs/
+    file: taco_clod.log
+  level:
+    tacos: WARN
+    root: WARN
+    org.springframework.security: DEBUG
+taco:
+  orders:
+    pageSize: 10
+    test: test
 # todo: set thymeleaf cache true before deployment
 # CREATE USER tacocloud WITH PASSWORD 's3cr3tP455w0rd' SUPERUSER;

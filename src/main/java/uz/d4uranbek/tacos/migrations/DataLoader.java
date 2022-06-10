@@ -1,11 +1,16 @@
 package uz.d4uranbek.tacos.migrations;
 
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import uz.d4uranbek.tacos.domains.Ingredient;
 import uz.d4uranbek.tacos.domains.Ingredient.Type;
+import uz.d4uranbek.tacos.domains.User;
 import uz.d4uranbek.tacos.repositories.IngredientRepository;
+import uz.d4uranbek.tacos.repositories.UserRepository;
 
 import java.util.List;
 
@@ -15,6 +20,25 @@ import java.util.List;
  */
 @Component
 public class DataLoader {
+
+    @Bean
+    // @Profile( {"dev", "qa"} )
+    @Profile( "!prod" )
+    public CommandLineRunner loadDataForDevelopment(UserRepository userRepository,
+                                                    PasswordEncoder passwordEncoder) {
+
+        return args -> {
+            User user = User.builder()
+                    .username( "d4uranbek" )
+                    .password( passwordEncoder.encode( "d4uranbek" ) )
+                    .fullName( "Dauranbek Abdiganiev" )
+                    .city( "Tashkent" )
+                    .phoneNumber( "7654321" )
+                    .build();
+
+            userRepository.save( user );
+        };
+    }
 
     @Bean
     public ApplicationRunner loadData(IngredientRepository ingredientRepository) {
